@@ -1,4 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using PC120240219200255NAVARRO.DOMAIN.Core.Interfaces;
+using PC120240219200255NAVARRO.DOMAIN.Infrastructure.Data;
+using PC120240219200255NAVARRO.DOMAIN.Infrastructure.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+var _config = builder.Configuration;
+var cnx = _config.GetConnectionString("DevConnection");
+builder.Services
+    .AddDbContext<EventManagementDbContext>
+    (options => options.UseSqlServer(cnx));
+
+builder.Services.AddTransient<IAttendeesRepository, AttendeesRepository>();
+
 
 // Add services to the container.
 
